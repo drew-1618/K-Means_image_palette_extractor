@@ -1,0 +1,29 @@
+# We only want to track the source images.
+/images/output/
+
+# Ignore the .ipynb_checkpoints folder created by Jupyter
+.ipynb_checkpoints/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.so
+
+# Virtual environment folders
+/venv
+/env
+.venv
+
+# Package installer/build files
+*.egg-info/
+dist/
+build/
+
+Ignore large saved models
+*.pkl
+*.h5
+*.onnx
+*.pth
+
+.vscode/
