@@ -1,5 +1,6 @@
-# We only want to track the source images.
+# Don't track images due to file size
 /images/output/
+/images/source/
 
 # Ignore the .ipynb_checkpoints folder created by Jupyter
 .ipynb_checkpoints/
