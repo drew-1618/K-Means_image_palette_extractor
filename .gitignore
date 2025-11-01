@@ -1,6 +1,3 @@
-# We only want to track the source images.
-/images/output/
-
 # Ignore the .ipynb_checkpoints folder created by Jupyter
 .ipynb_checkpoints/
 
