@@ -6,7 +6,7 @@ This project demonstrates the core concepts of **Unsupervised Machine Learning**
 
 * Feature Engineering: We tell the model to ignore where a pixel is located (its spatial coordinates) and focus only on its color value, which is the key feature needed to find the color groups.
 
-* Data Reduction: The project shrinks a massive dataset (millions of colors) down to a small, meaningful set of colors (K=5), which is a core task in machine learning and data analysis.
+* Data Reduction: The project shrinks a massive dataset (millions of colors) down to a small, meaningful set of colors (K=4), which is a core task in machine learning and data analysis.
 
 ## ✨ Final Showcase
 
