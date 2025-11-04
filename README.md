@@ -4,7 +4,7 @@ This project demonstrates the core concepts of **Unsupervised Machine Learning**
 
 * Unsupervised Learning: The model works entirely on its own, without needing to be "trained" on pre-labeled data. It discovers the patterns (the clusters of color) inherent in the image data.
 
-* Feature Engineering: We tell the model to ignore where a pixel is located (its spatial coordinates) and focus only on its color value, which is the key feature needed to find the color groups.
+* Feature Engineering: The model ignores where a pixel is located (its spatial coordinates) and focus only on its color value, which is the key feature needed to find the color groups. By converting to L\*a\*b color space before clustering, it ensures colors are grouped based on perceptual similarity rather than numerical RGB proximity.
 
 * Data Reduction: The project shrinks a massive dataset (millions of colors) down to a small, meaningful set of colors (K=4), which is a core task in machine learning and data analysis.
 
@@ -22,11 +22,11 @@ Here is the dominant color palette extracted from a sample input image, with the
 
 Use the **Elbow Method** to ensure the K value (number of colors) is analytically justified, not arbitrary.
 
-The plot below shows how the **Inertia** (Sum of Squared Distances) decreases as the number of clusters K increases. 
+The plot below shows how the **Inertia** (Sum of Squared Distances in L\*a\*b Space) decreases as the number of clusters K increases. 
 
 The point where the curve bends (the "elbow") indicates that adding more clusters provides diminishing returns on fitting the data.
 
-In this specific case, the elbow occurs within K=3 to K=5 (depending on the granularity desired), confirming that four colors provides a great balance between model simplicity and data representation.
+In this specific case, the elbow occurs within K=4 to K=6 (depending on the granularity desired), confirming that four colors provides a great balance between model simplicity and data representation.
 
 ![Elbow Plot Visualization](showcase_elbow_plot.png)
 
@@ -35,9 +35,9 @@ In this specific case, the elbow occurs within K=3 to K=5 (depending on the gran
 | Component | Technology / Concept | Key Takeaway |
 | :--- | :--- | :--- |
 | **Algorithm** | K-Means Clustering (Unsupervised Learning) | Learns patterns in data without pre-labeled categories. |
-| **Data Prep** | NumPy `reshape` | Converts the 3D image array (Height x Width x RGB) into a 2D feature vector (Pixels x RGB). |
+| **Data Prep** | NumPy `reshape` | Converts the 3D image array (Height x Width x L\*a\*b) into a 2D feature vector (Pixels x L\*a\*b). |
 | **Sorting Stability** | Python List Sorting (`lambda`) | Ensures the visual output is consistent across runs by sorting colors based on frequency. |
-| **Libraries** | `scikit-learn`, `NumPy`, `PIL`, `Matplotlib` | Standard tools for ML model building and visualization in Python. |
+| **Libraries** | `scikit-learn`, `scikit-image`, `NumPy`, `PIL`, `Matplotlib` | Standard tools for ML model building and visualization in Python. |
 
 ## 🚀 How to Run the Project
 
@@ -45,7 +45,8 @@ In this specific case, the elbow occurs within K=3 to K=5 (depending on the gran
 
 1.  **Python 3.x** installed.
 2.  A **Virtual Environment (`venv`)** must be created and activated.
-3.  Install dependencies: `pip install numpy Pillow scikit-learn matplotlib`
+3.  Install dependencies: `pip install numpy Pillow scikit-learn scikit-image matplotlib`
+    * Or once you're in the clone repository, `pip install -r requirements.txt`
 
 ### Steps
 
@@ -53,14 +54,24 @@ In this specific case, the elbow occurs within K=3 to K=5 (depending on the gran
     ```bash
     git clone https://github.com/drew-1618/K-Means_image_palette_extractor.git
     cd K-Means_image_palette_extractor
-    # Activate your venv here
+    # Create and activate virtual environment
+    python3 -m venv .venv
+    source .venv/bin/activate  # On Linux/Mac
+    # or
+    .venv\Scripts\activate     # On Windows
+    ```
+2. **Install the Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    # or manually
+    pip install numpy Pillow scikit-learn scikit-image matplotlib
     ```
 
-2.  **Add Your Image:**
+3.  **Add Your Image:**
     * Create a folder named `images/source/` in the project root.
     * Place your chosen image (e.g., `my_photo.jpg`) inside that folder.
 
-3.  **Run the Notebook:**
+4.  **Run the Notebook:**
     * Open `palette-extractor.ipynb` in VSCode or Jupyter.
     * Update the `IMAGE_PATH` variable to point to your file.
     * Run all cells to see the generated palette!
