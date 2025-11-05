@@ -45,7 +45,7 @@ In this specific case, the elbow occurs within K=4 to K=6 (depending on the gran
 
 1.  **Python 3.x** installed.
 2.  A **Virtual Environment (`venv`)** must be created and activated.
-3.  Install dependencies: `pip install numpy Pillow scikit-learn scikit-image matplotlib`
+3.  Install dependencies: `pip install numpy Pillow scikit-learn scikit-image matplotlib kneed`
     * Or once you're in the clone repository, `pip install -r requirements.txt`
 
 ### Steps
@@ -64,7 +64,7 @@ In this specific case, the elbow occurs within K=4 to K=6 (depending on the gran
     ```bash
     pip install -r requirements.txt
     # or manually
-    pip install numpy Pillow scikit-learn scikit-image matplotlib
+    pip install numpy Pillow scikit-learn scikit-image matplotlib kneed
     ```
 
 3.  **Add Your Image:**
