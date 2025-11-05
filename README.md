@@ -1,34 +1,41 @@
 # 🎨 Pix-Palette: K-Means Dominant Color Extractor
 
-This project demonstrates the core concepts of **Unsupervised Machine Learning**, **Feature Engineering**, and **Data Reduction** by automatically extracting the dominant color palette from any input image, shrinking millions of color values to an interpretable few. The solution uses the **_K-Means Clustering_** algorithm to group millions of individual pixel colors into a specified number of representative colors, which are then displayed in a proportional palette with their RGB values. To ensure the palette is optimal, the project utilizes the Elbow Method to analytically determine the best number of clusters (K) for any given image.
+This project demonstrates the core concepts of **Unsupervised Machine Learning**, **Feature Engineering**, and **Automated Parameter Optimization** by extracting the dominant color palette from any input image. The goal is to shrink millions of color values to an interpretable and analytically justified few. 
+
+The solution uses the **_K-Means Clustering_** algorithm to group millions of individual pixel colors into a small number of representative colors, which are then displayed in a proportional palette with their RGB values. The key enhancement is the **Autmoated Optimal K-Selection**, which uses the Elbow Method coupled with the **KneeLocator** algorithm to determine the best number of clusters ($K$) for any given image, removing the need for manual inspection.
 
 * Unsupervised Learning: The model works entirely on its own, without needing to be "trained" on pre-labeled data. It discovers the patterns (the clusters of color) inherent in the image data.
 
 * Feature Engineering: The model ignores where a pixel is located (its spatial coordinates) and focus only on its color value, which is the key feature needed to find the color groups. By converting to L\*a\*b color space before clustering, it ensures colors are grouped based on perceptual similarity rather than numerical RGB proximity.
 
-* Data Reduction: The project shrinks a massive dataset (millions of colors) down to a small, meaningful set of colors (K=4), which is a core task in machine learning and data analysis.
+* Automated Optimization & Robustness: The project utilizes a fully automated process to select the optimal $K$. It includes a robust fallback mechanism to ensure a clean palette will still be generated if there is not clear "elbow". 
 
 ## ✨ Final Showcase
 
-This section demonstrates the successful Data Reduction from millions of unique colors to an optimized, interpretable palette.
+This section demonstrates the successful Data Reduction from millions of unique colors to an optimized, interpretable palette, powered by an optional **automatic parameter optimization loop**.
 
-### 🎨 Final Optimized Palette (K=4)
+### 🎨 Final Optimized Palette ($K$=4)
 
-Here is the dominant color palette extracted from a sample input image, with the final K value determined analytically by the Elbow Method. The colors are sorted by their frequency (proportion) in the image:
+This section showcases the output of the two modes available: the manual **Default $K$** (for comparison and user-override) and the **Analytically Optimized $K$**. The colors in both palettes are sorted by their frequency (proportion) in the image.
 
-![Dominant Color Palette Output](showcase_palette_output.png)
+| 1. Default Run ($K$ is Manually Set) | 2. Optimized Run ($K$ is Automatically Chosen) |
+| :--- | :--- |
+| **Palette Output** | **Palette Output** |
+| ![Dominant Color Palette Output](showcase_palette_output.png) | ![Dominant Color Palette Output Optimized](showcase_palette_output_optimized.png) |
+| **Justification:** $K$ is set to a conventional value (e.g., 4), which may not be the optimal fit for the specific image data. | **Justification:** $K$ is set to the value automatically recommended by the KneeLocator algorithm, ensuring the best analytical fit. |
 
-### 📈 Justification: Optimal K Selection
+### 📈 Justification: The Automated Optimal $K$ Selection
 
-Use the **Elbow Method** to ensure the K value (number of colors) is analytically justified, not arbitrary.
+The **Elbow Method plot** is used to ensure the final $K$ value (number of colors) is analytically justified, not arbitrary.
 
-The plot below shows how the **Inertia** (Sum of Squared Distances in L\*a\*b Space) decreases as the number of clusters K increases. 
+The plot below shows how the **Inertia** (Sum of Squared Distances in L\*a\*b Space) decreases as the number of clusters $K$ increases. 
 
-The point where the curve bends (the "elbow") indicates that adding more clusters provides diminishing returns on fitting the data.
+| 1. Elbow Plot (Before Automation) | 2. Elbow Plot (After Automation) |
+| :--- | :--- |
+| ![Elbow Plot Visualization](showcase_elbow_plot.png) | ![Elbow Plot Visualization Optimized](showcase_elbow_plot_optimized.png) |
+| The user was previously required to **manually inspect** this curve to visually estimate the optimal point (the "elbow"). | The **KneeLocator algorithm** now automatically identifies this "elbow." The **orange vertical line** marks the exact $K$ value chosen by the routine for the final extraction. |
 
-In this specific case, the elbow occurs within K=4 to K=6 (depending on the granularity desired), confirming that four colors provides a great balance between model simplicity and data representation.
-
-![Elbow Plot Visualization](showcase_elbow_plot.png)
+This robust process (including a safe fallback to a `DEFAULT_K`) ensures the palette extractor is reliable and data-driven for every input image.
 
 ## ⚙️ Technical Details
 
@@ -36,8 +43,10 @@ In this specific case, the elbow occurs within K=4 to K=6 (depending on the gran
 | :--- | :--- | :--- |
 | **Algorithm** | K-Means Clustering (Unsupervised Learning) | Learns patterns in data without pre-labeled categories. |
 | **Data Prep** | NumPy `reshape` | Converts the 3D image array (Height x Width x L\*a\*b) into a 2D feature vector (Pixels x L\*a\*b). |
+| **K-Optimization** | `kneed` (KneeLocator) | Programmatically finds the optimal $K$ value by identifying the "elbow" point in the inertia curve. |
+| **Robustness** | Defensive Programming / Fallback Logic | Ensures the extractor uses a `DEFAULT_K` if optimization routine fails to find a clear elbow, guaranteeing a clean result. |
 | **Sorting Stability** | Python List Sorting (`lambda`) | Ensures the visual output is consistent across runs by sorting colors based on frequency. |
-| **Libraries** | `scikit-learn`, `scikit-image`, `NumPy`, `PIL`, `Matplotlib` | Standard tools for ML model building and visualization in Python. |
+| **Libraries** | `scikit-learn`, `scikit-image`, `NumPy`, `PIL`, `Matplotlib`, `kneed` | Standard tools for ML model building and visualization in Python. |
 
 ## 🚀 How to Run the Project
 
@@ -74,6 +83,7 @@ In this specific case, the elbow occurs within K=4 to K=6 (depending on the gran
 4.  **Run the Notebook:**
     * Open `palette-extractor.ipynb` in VSCode or Jupyter.
     * Update the `IMAGE_PATH` variable to point to your file.
+    * Optionally update the `DEFAULT_K` variable and the `IGNORE_OPTIMAL_K` flag to use your choice of K.
     * Run all cells to see the generated palette!
 
 ---
