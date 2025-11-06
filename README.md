@@ -2,7 +2,7 @@
 
 This project demonstrates the core concepts of **Unsupervised Machine Learning**, **Feature Engineering**, and **Automated Parameter Optimization** by extracting the dominant color palette from any input image. The goal is to shrink millions of color values to an interpretable and analytically justified few. 
 
-The solution uses the **_K-Means Clustering_** algorithm to group millions of individual pixel colors into a small number of representative colors, which are then displayed in a proportional palette with their RGB values. The key enhancement is the **Autmoated Optimal K-Selection**, which uses the Elbow Method coupled with the **KneeLocator** algorithm to determine the best number of clusters ($K$) for any given image, removing the need for manual inspection.
+The solution uses the **_K-Means Clustering_** algorithm to group millions of individual pixel colors into a small number of representative colors, which are then displayed in a proportional palette with their RGB values. The key enhancement is the **Automated Optimal K-Selection**, which uses the Elbow Method coupled with the **KneeLocator** algorithm to determine the best number of clusters ($K$) for any given image, removing the need for manual inspection.
 
 * Unsupervised Learning: The model works entirely on its own, without needing to be "trained" on pre-labeled data. It discovers the patterns (the clusters of color) inherent in the image data.
 
